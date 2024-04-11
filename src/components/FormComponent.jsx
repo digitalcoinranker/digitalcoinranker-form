@@ -43,6 +43,7 @@ const validationSchema = Yup.object({
       (value) => parseFloat(value) <= 700
     )
     .required("Crypto amount is required"),
+    crypto_wallet: Yup.string().required("Crypto wallet is required"),
 });
 
 const fiatList = [{ id: 4, name: "EUR" }];
