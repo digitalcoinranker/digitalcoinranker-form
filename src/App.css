@@ -26,7 +26,7 @@ form .Mui-error fieldset{
   border-color: #f00!important;
 }
 .error-message,
-.MuiFormHelperText-root.Mui-error {
+.MuiFormHelperText-root.Mui-error, .MuiFormHelperText-root.error-message {
   color: #f00;
   font-size: 10px;
   position: absolute;

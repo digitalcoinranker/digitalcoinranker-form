@@ -11,6 +11,7 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  FormHelperText
 } from "@mui/material";
 
 function useQuery() {
@@ -28,7 +29,9 @@ const validationSchema = Yup.object({
   client_billAddress1: Yup.string().required("Billing Address 1 is required"),
   client_billCity: Yup.string().required("Billing City is required"),
   client_billZipcode: Yup.string().required("Billing Zipcode is required"),
-  client_billCountry: Yup.string().required("Billing Country is required"),
+  client_billCountry: Yup.string()
+    .notOneOf(["Country"], "Billing Country is required")
+    .required("Billing Country is required"),
   cryptocurrency: Yup.string().required("Cryptocurrency is required"),
   currency: Yup.string().required("Currency is required"),
   fiat_amount: Yup.string()
@@ -43,7 +46,7 @@ const validationSchema = Yup.object({
       (value) => parseFloat(value) <= 700
     )
     .required("Crypto amount is required"),
-    crypto_wallet: Yup.string().required("Crypto wallet is required"),
+  crypto_wallet: Yup.string().required("Crypto wallet is required"),
 });
 
 const fiatList = [{ id: 4, name: "EUR" }];
@@ -249,12 +252,11 @@ const FormComponent = () => {
               value={formik.values.client_billCity}
               onChange={formik.handleChange}
               error={
-                formik.touched.client_billAddress2 &&
-                Boolean(formik.errors.client_billAddress2)
+                formik.touched.client_billCity &&
+                Boolean(formik.errors.client_billCity)
               }
               helperText={
-                formik.touched.client_billAddress2 &&
-                formik.errors.client_billAddress2
+                formik.touched.client_billCity && formik.errors.client_billCity
               }
             />
           </Grid>
@@ -305,6 +307,10 @@ const FormComponent = () => {
                   </MenuItem>
                 ))}
               </Select>
+              <FormHelperText className="error-message">
+                {formik.touched.client_billCountry &&
+                  formik.errors.client_billCountry}
+              </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>
